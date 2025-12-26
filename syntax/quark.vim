@@ -37,7 +37,8 @@ syn match quarkSMacro   '\v(::\s*)@<=[_]*\u\w*'
 syn match quarkType     '\v<\w+>\ze(::|\<(\w+\s*(\<.*\>|\[.*\])?\s*[,]?\s*)*\>)' "foo<T>()
 syn match Function      '\v[_]*\l\w*\ze((\[.*\])|((::)?\<.*\>))*\s*\('
 
-syn match Exception     '\v(\W@<=[~&*]+\ze[\(\[\{\<]*[-]?\w)|(\w@<=[*]+\ze\W)'
+syn match Title         '\v^([&])\ze\w'
+syn match Title         '\v(\W@<=[~&!*]+\ze[\(\[\{\<]*[-]?\w)|(\w@<=[*!?]+\ze\W)'
 syn match Changed       '\v((type|struct|enum|union)(\<.*\>)?\s*)@<=[_]*\u\w*\ze(\<.*\>)?\s*(\(|\{)'
 
 syn match quarkInclude  '\v^\s*<import>'
