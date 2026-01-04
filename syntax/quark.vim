@@ -47,18 +47,18 @@ syn match quarkLabel    '\v<\@(\w+)>\ze\s*\('
 "syn match quarkType     '\v<str\ze\s+\w+>'
 
 " -- shader
-"syn keyword quarkKeyword  uniform instance varying var
-"syn keyword quarkKeyword  vertex fragment
-"syn keyword quarkType     texture texture2D
-syn match quarkType    '\v<bool[234]?>'
-syn match quarkType    '\v<int[234]?>'
-syn match quarkType    '\v<uint[234]?>'
-syn match quarkType    '\v<half[234]?>'
-syn match quarkType    '\v<float([234](x[234])?)?>'
-syn match quarkType    '\v<[dbui]?vec[234]>'
-syn match quarkType    '\v<vec[234][dbfhui]?>'
-syn match quarkType    '\v<mat[234](x[234]f)?>'
-syn match Keyword       '\v^<(in|out)>'
+syn match quarkKeyword  '\v<(uniform|instance|varying|var|vertex|fragment|in|out)>\s'
+syn match quarkType     '\v<(texture|texture2D)>\s'
+syn match quarkType     '\v<bool[234]?>'
+syn match quarkType     '\v<int[234]?>'
+syn match quarkType     '\v<uint[234]?>'
+syn match quarkType     '\v<half[234]?>'
+syn match quarkType     '\v<float([234](x[234])?)?>'
+syn match quarkType     '\v<[dbui]?vec[234]>'
+syn match quarkType     '\v<vec[234][dbfhui]?>'
+syn match quarkType     '\v<mat[234](x[234]f)?>'
+syn match quarkType     '\v<(vec|mat|list)\ze\['
+
 
 hi def link quarkConstant  Constant
 hi def link quarkTitle     Title
