@@ -9,23 +9,23 @@ set cpo&vim
 compiler quark
 
 " Formatting
-setlocal formatoptions+=croql/ formatoptions-=t
+setl formatoptions+=croql/ formatoptions-=t
 
 " Miscellaneous settings
-setlocal comments=://
-setlocal commentstring=//\ %s
-setlocal iskeyword+=@-@
-setlocal suffixesadd=.n
+setl comments=://
+setl commentstring=//\ %s
+setl iskeyword+=@-@
+setl suffixesadd=.qk
 
 let b:undo_ftplugin = 'setl cms< com< fo< isk< sua<'
 
 " Follow the quark style guide by default.
 if get(g:, 'quark_recommended_style', 1)
-  setlocal expandtab
-  setlocal shiftwidth=4
-  setlocal softtabstop=4
-  setlocal tabstop=4
-  setlocal textwidth=80
+  setl expandtab
+  setl shiftwidth=4
+  setl softtabstop=4
+  setl tabstop=4
+  setl textwidth=80
   let b:undo_ftplugin .= ' et< sts< sw< ts< tw<'
 endif
 
@@ -45,8 +45,8 @@ augroup quark.vim
   autocmd!
   " Highlight incorrect spacing by default.
   if get(g:, 'quark_space_error', 1)
-    autocmd InsertEnter * hi link quarkSpaceError NONE
-    autocmd InsertLeave * hi link quarkSpaceError Error
+    au InsertEnter * hi link quarkSpaceError NONE
+    au InsertLeave * hi link quarkSpaceError Error
   endif
 augroup END
 
