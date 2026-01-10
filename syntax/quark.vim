@@ -2,53 +2,58 @@ if exists("b:current_syntax")
     finish
 endif
 
-syn keyword quarkKeyword new auto 
+syn keyword quarkKeyword auto 
 syn keyword quarkKeyword const static extern export
-syn keyword quarkException throw try catch
+syn keyword quarkExcept  throw try catch
 syn keyword quarkInclude include macro
 
 syn keyword quarkRepeat for while is
 syn keyword quarkStatement break continue return
 syn keyword quarkConditional if else switch
 
-syn keyword quarkType uint8_t int8_t uint16_t int16_t uint32_t int32_t uint64_t int64_t 
-syn keyword quarkType float double long short ssize_t size_t signed unsigned 
-syn keyword quarkType isize	usize ichar uchar char bool void 
-syn keyword quarkType i8 i16 i32 i64 u8 u16 u32 u64 int uint
-syn keyword quarkType f32 f64
-syn keyword quarkConstant true false null
-syn keyword quarkTitle panic
-syn keyword quarkSelf self
-"syn keyword quarkSuper private
+syn keyword quarkType   uint8_t int8_t uint16_t int16_t uint32_t int32_t uint64_t int64_t 
+syn keyword quarkType   float double long short ssize_t size_t signed unsigned 
+syn keyword quarkType   isize usize ichar uchar char bool void 
+syn keyword quarkType   i8 i16 i32 i64 u8 u16 u32 u64 int uint
+syn keyword quarkType   f32 f64
+syn keyword quarkConst  true false null
+syn keyword quarkTitle  panic
+syn keyword quarkSelf   self this
+syn keyword quarkSMacro typeof sizeof
 
 "syn match quarkType     '\v<(\w+)>\ze\s+\w+\s*(\[.*\])?[;]?$'
 syn match quarkType     '\v<(\w+)>\ze\s+\w+\s*(\[.*\])?[,;]?'
-syn match PreProc       '[@]'
+syn match quarkNew      '\v<(new|[m]?alloc|create)>'
+syn match quarkFree     '\v<(free)>'
+
+syn match quarkProc     '[@]'
 syn match quarkSymbol   '[,;:\.]'
-syn match Operator      '[\+\-\%=\/\^\&\*!?><\$|~]'
-syn match Constant      '[{}\[\]()]'
+syn match quarkOperator '[\+\-\%=\/\^\&\*!?><\$|~]'
+syn match quarkConst    '[{}\[\]()]'
 syn match quarkTitle    '\v(-\>)'
 syn match quarkType     '\v<\w+_([tscemui])>'
-syn match Macro         '\v<[_]*\u[A-Z0-9_]*>'
+syn match quarkMacro    '\v<[_]*\u[A-Z0-9_]*>'
 syn match quarkType     '\v<[_]*\u[A-Z0-9_]*[a-z]+\w*>'
 "syn match quarkType     '\v\.?\zs<([iu][0-9]{1,3})?>'
-syn match Repeat        '\v([^\.](\.|::|-\>))@<=\w\w*'
+syn match quarkRepeat   '\v([^\.](\.|::|-\>))@<=\w\w*'
 syn match quarkSMacro   '\v(::\s*)@<=[_]*\u\w*'
 syn match quarkType     '\v<\w+>\ze(::|\<(\w+\s*(\<.*\>|\[.*\])?\s*[,]?\s*)*\>)' "foo<T>()
-syn match Function      '\v[_]*\l\w*\ze((\[.*\])|((::)?\<.*\>))*\s*\('
+syn match quarkFunc     '\v[_]*\l\w*\ze((\[.*\])|((::)?\<.*\>))*\s*\('
 
-syn match Title         '\v^([&])\ze\w'
-syn match Title         '\v(\W@<=[~&!*]+\ze[\(\[\{\<]*[-]?\w)|(\w@<=[*!?]+\ze\W)'
-"syn match Changed       '\v((type|struct|enum|union)(\<.*\>)?\s*)@<=[_]*\u\w*\ze(\<.*\>)?\s*(\(|\{)'
+syn match quarkTitle    '\v^([&])\ze\w'
+syn match quarkTitle    '\v(\W@<=[~&!*]+\ze[\(\[\{\<]*[-]?\w)|(\w@<=[*!?]+\ze\W)'
+"syn match quarkTypedef '\v((type|struct|enum|union)(\<.*\>)?\s*)@<=[_]*\u\w*\ze(\<.*\>)?\s*(\(|\{)'
 
 syn match quarkInclude  '\v^\s*<import>'
 syn match quarkSMacro   '\v<(assert)(_\w+)?>\ze\s*\('
-syn match quarkLabel    '\v<\@(\w+)>\ze\s*\('
+syn match quarkAdded    '\v^\s*<(test)\ze\s*\{'
+syn match quarkLabel    '\v<\@(\w+)>'
+"syn match quarkLabel    '\v<\@(\w+)>\ze\s*\('
 "syn match quarkType     '\v<str\ze\s+\w+>'
 
 " -- shader
-syn match quarkKeyword  '\v<(uniform|instance|varying|var|vertex|fragment|in|out)>\s'
-syn match quarkType     '\v<(texture|texture2D)>\s'
+"syn match quarkKeyword  '\v<(uniform|instance|varying|var|vertex|fragment|in|out)>\s'
+"syn match quarkType     '\v<(texture|texture2D)>\s'
 syn match quarkType     '\v<bool[234]?>'
 syn match quarkType     '\v<int[234]?>'
 syn match quarkType     '\v<uint[234]?>'
@@ -60,7 +65,11 @@ syn match quarkType     '\v<mat[234](x[234]f)?>'
 syn match quarkType     '\v<(vec|mat|list)\ze\['
 
 
-hi def link quarkConstant  Constant
+hi def link quarkProc      Added
+hi def link quarkAdded     Added
+hi def link quarkNew       Added
+hi def link quarkFree      Exception
+hi def link quarkConst     Constant
 hi def link quarkTitle     Title
 hi def link quarkSymbol    Changed
 hi def link quarkMacro     Macro
@@ -122,7 +131,6 @@ hi def link quarkStatement             Statement
 hi def link quarkNumber                Number
 hi def link quarkComment               Comment
 hi def link quarkOperator              Operator
-hi def link quarkCharacter             Character
 hi def link quarkString                String
 hi def link quarkTodo                  Todo
 hi def link quarkSpecial               Special
@@ -130,16 +138,17 @@ hi def link quarkSpecialError          Error
 hi def link quarkSpecialCharError      Error
 hi def link quarkCharacter             Character
 hi def link quarkSpecialChar           SpecialChar
-hi def link quarkException             Exception
+hi def link quarkExcept                Exception
 
 syn match quarkTypedef  contains=quarkTypedef "\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*" display contained
 syn match quarkFunc    "\%(r#\)\=\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*" display contained
-syn keyword quarkKeyword union struct enum type nextgroup=quarkTypedef skipwhite skipempty
+"syn keyword quarkKeyword union struct enum type nextgroup=quarkTypedef skipwhite skipempty
+syn keyword quarkKeyword union struct enum type nextgroup=quarkTypedef skipwhite
 syn keyword quarkKeyword union nextgroup=quarkType skipwhite skipempty contained
 " adapted from neovim runtime/syntax
 syn keyword quarkTodo contained TODO FIXME XXX NOTE
 syn region  quarkComment start="/\*" end="\*/" contains=quarkTodo,@Spell
 syn match   quarkComment "//.*$" contains=quarkTodo,@Spell
-syn match   PreProc '\v#.*$'
+syn match   quarkProc    '\v#.*$'
 
 let b:current_syntax = "quark"

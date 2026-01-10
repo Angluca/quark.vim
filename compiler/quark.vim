@@ -13,7 +13,7 @@ endif
 if filereadable("Makefile") || filereadable("makefile")
   CompilerSet makeprg=make
 else
-  CompilerSet makeprg=qc\ %\ -o\ %:p:r.c\ -l\ $QUARK_ROOT\ &&\ gcc\ %:p:r.c\ -o\ %:p:r\ &&\ ./%:p:r
+  CompilerSet makeprg=qc\ %:p\ -o\ %:p:r.c\ -l\ $QUARK_ROOT\ &&\ gcc\ %:p:r.c\ -o\ %:p:r
   
 endif
 
