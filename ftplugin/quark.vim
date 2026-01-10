@@ -14,7 +14,7 @@ setl formatoptions+=croql/ formatoptions-=t
 " Miscellaneous settings
 setl comments=://
 setl commentstring=//\ %s
-setl iskeyword+=@-@
+setl iskeyword+=@-@,$
 setl suffixesadd=.qk
 
 let b:undo_ftplugin = 'setl cms< com< fo< isk< sua<'
@@ -27,6 +27,12 @@ if get(g:, 'quark_recommended_style', 1)
   setl tabstop=4
   setl textwidth=80
   let b:undo_ftplugin .= ' et< sts< sw< ts< tw<'
+
+  "let s:root = expand('<sfile>:p:h:h')
+  "exe 'setl tags+=' .. s:root .. '/tags/quark.tags'
+  ""exe 'setl dict+=' .. s:root .. '/tags/quark.dict'
+  "exe 'setl dict+=' .. s:root .. '/tags/quark.base.dict'
+  
 endif
 
 fu! DeleteTrailingWS()

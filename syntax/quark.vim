@@ -3,7 +3,7 @@ if exists("b:current_syntax")
 endif
 
 syn keyword quarkKeyword new auto 
-syn keyword quarkKeyword const static type extern export
+syn keyword quarkKeyword const static extern export
 syn keyword quarkException throw try catch
 syn keyword quarkInclude include macro
 
@@ -31,7 +31,7 @@ syn match quarkTitle    '\v(-\>)'
 syn match quarkType     '\v<\w+_([tscemui])>'
 syn match Macro         '\v<[_]*\u[A-Z0-9_]*>'
 syn match quarkType     '\v<[_]*\u[A-Z0-9_]*[a-z]+\w*>'
-syn match quarkType     '\v\.?\zs<([iu][0-9]{1,3})?>'
+"syn match quarkType     '\v\.?\zs<([iu][0-9]{1,3})?>'
 syn match Repeat        '\v([^\.](\.|::|-\>))@<=\w\w*'
 syn match quarkSMacro   '\v(::\s*)@<=[_]*\u\w*'
 syn match quarkType     '\v<\w+>\ze(::|\<(\w+\s*(\<.*\>|\[.*\])?\s*[,]?\s*)*\>)' "foo<T>()
@@ -39,7 +39,7 @@ syn match Function      '\v[_]*\l\w*\ze((\[.*\])|((::)?\<.*\>))*\s*\('
 
 syn match Title         '\v^([&])\ze\w'
 syn match Title         '\v(\W@<=[~&!*]+\ze[\(\[\{\<]*[-]?\w)|(\w@<=[*!?]+\ze\W)'
-syn match Changed       '\v((type|struct|enum|union)(\<.*\>)?\s*)@<=[_]*\u\w*\ze(\<.*\>)?\s*(\(|\{)'
+"syn match Changed       '\v((type|struct|enum|union)(\<.*\>)?\s*)@<=[_]*\u\w*\ze(\<.*\>)?\s*(\(|\{)'
 
 syn match quarkInclude  '\v^\s*<import>'
 syn match quarkSMacro   '\v<(assert)(_\w+)?>\ze\s*\('
@@ -80,6 +80,7 @@ syn match  quarkCharacter        "'[^\\]'"
 syn region    quarkString      matchgroup=quarkString start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=@Spell
 syn region    quarkString      matchgroup=quarkString start=+'+ skip=+\\\\\|\\'+ end=+'+ contains=@Spell
 
+syn match quarkNumber "\v<[0-9_]+>"
 syn match quarkNumber "\v<0[xX][0-9a-fA-F_]+([iuIU]?[lL]?[0-9]{-,3})?>"
 syn match quarkNumber "\v<0[bB][01_]+([iuIU]?[lL]?[0-9]{-,3})?>"
 
@@ -134,7 +135,7 @@ hi def link quarkException             Exception
 syn match quarkTypedef  contains=quarkTypedef "\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*" display contained
 syn match quarkFunc    "\%(r#\)\=\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*" display contained
 syn keyword quarkKeyword union struct enum type nextgroup=quarkTypedef skipwhite skipempty
-syn keyword quarkKeyword type nextgroup=quarkType skipwhite skipempty contained
+syn keyword quarkKeyword union nextgroup=quarkType skipwhite skipempty contained
 " adapted from neovim runtime/syntax
 syn keyword quarkTodo contained TODO FIXME XXX NOTE
 syn region  quarkComment start="/\*" end="\*/" contains=quarkTodo,@Spell
