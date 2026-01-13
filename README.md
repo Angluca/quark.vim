@@ -1,5 +1,7 @@
 #### Vim plugin for quark language
-https://github.com/quark-programming/quark
+https://github.com/quark-programming/quark  
+
+Install using [vim-plug](https://github.com/junegunn/vim-plug) and [clangd](https://github.com/clangd/clangd/releases)
 ```vim
 Plug 'angluca/quark.vim'
 Plug 'yegappan/lsp'
