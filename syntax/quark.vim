@@ -5,7 +5,7 @@ endif
 syn keyword quarkKeyword auto 
 syn keyword quarkKeyword const static extern export
 syn keyword quarkExcept  throw try catch
-syn keyword quarkInclude include macro
+syn keyword quarkInclude include macro extern export
 
 syn keyword quarkRepeat for while is
 syn keyword quarkStatement break continue return
@@ -38,7 +38,8 @@ syn match quarkType     '\v<[_]*\u[A-Z0-9_]*[a-z]+\w*>'
 syn match quarkRepeat   '\v([^\.](\.|::|-\>))@<=\w\w*'
 syn match quarkSMacro   '\v(::\s*)@<=[_]*\u\w*'
 syn match quarkType     '\v<\w+>\ze(::|\<(\w+\s*(\<.*\>|\[.*\])?\s*[,]?\s*)*\>)' "foo<T>()
-syn match quarkFunc     '\v[_]*\l\w*\ze((\[.*\])|((::)?\<.*\>))*\s*\('
+"syn match quarkFunc     '\v[_]*\l\w*\ze((\[.*\])|((::)?\<.*\>))*\s*\('
+syn match quarkFunc     '\v[_]*\w+\ze((\[.*\])|((::)?\<.*\>))*\s*\('
 
 syn match quarkTitle    '\v^([&])\ze\w'
 syn match quarkTitle    '\v(\W@<=[~&!*]+\ze[\(\[\{\<]*[-]?\w)|(\w@<=[*!?]+\ze\W)'
@@ -142,9 +143,11 @@ hi def link quarkExcept                Exception
 
 syn match quarkTypedef  contains=quarkTypedef "\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*" display contained
 syn match quarkFunc    "\%(r#\)\=\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*" display contained
+"syn keyword quarkSkip extern const volatile static register contained transparent nextgroup=quarkSkip,quarkTypedef skipwhite
+syn match quarkSkip "\<\%(extern\|export\)\>\s\+" contained transparent nextgroup=quarkTypedef
 "syn keyword quarkKeyword union struct enum type nextgroup=quarkTypedef skipwhite skipempty
-syn keyword quarkKeyword union struct enum type nextgroup=quarkTypedef skipwhite
-syn keyword quarkKeyword union nextgroup=quarkType skipwhite skipempty contained
+syn keyword quarkKeyword union struct enum type nextgroup=quarkSkip,quarkTypedef skipwhite
+syn keyword quarkKeyword union nextgroup=quarkSkip,quarkType skipwhite skipempty contained
 " adapted from neovim runtime/syntax
 syn keyword quarkTodo contained TODO FIXME XXX NOTE
 syn region  quarkComment start="/\*" end="\*/" contains=quarkTodo,@Spell
