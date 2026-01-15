@@ -10,6 +10,7 @@ au filetype quark call LspAddServer([#{
             \    name: 'quark',
             \    filetype: ['quark'],
             \    path: 'clangd',
+            \    args: ['--background-index']
             \  }])
 ```
 
